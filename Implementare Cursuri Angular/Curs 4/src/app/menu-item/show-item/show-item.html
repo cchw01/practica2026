@@ -1,0 +1,35 @@
+@if (itemFound) {
+  <div>
+    <p>Item information:</p>
+    <p>
+      <b>ID:</b> <i>{{ item.id }}</i>
+    </p>
+    <p>
+      <b>Name:</b> <i>{{ item.name }}</i>
+    </p>
+    <p>
+      <b>Description:</b><i>{{ item.description }}</i>
+    </p>
+    <p>
+      <b>User:</b><i>{{ item.user }}</i>
+    </p>
+    <p>
+      <b>Location</b><i>{{ item.location }}</i>
+    </p>
+    <p>
+      <b>Inventory Number</b><i>{{ item.inventoryNumber }}</i>
+    </p>
+    <p>
+      <b>Creation Date:</b><i>{{ item.createdAt }}</i>
+    </p>
+    <p>
+      <b>Modified Date:</b><i>{{ item.modifiedAt }}</i>
+    </p>
+    <p>
+      <b>Deleted:</b><i>{{ item.deleted }}</i>
+    </p>
+    <p><button mat-raised-button (click)="editItem()">Edit</button></p>
+  </div>
+} @else {
+  <div><br />Item not found!</div>
+}
