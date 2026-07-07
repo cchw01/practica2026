@@ -1,9 +1,9 @@
 import { Component, OnInit, viewChild, ViewChild } from '@angular/core';
-import { InventoryListMock } from '../../app-logic/inventory-list-mock';
 import { InventoryItem } from '../../app-logic/inventory-item';
+import { InventoryListMock } from '../../app-logic/inventory-list-mock';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -13,45 +13,44 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrl: './inventory.css',
 })
 export class Inventory implements OnInit {
-  @ViewChild(MatPaginator, { static: true })
-  paginator: MatPaginator | undefined;
-
-  @ViewChild(MatSort, { static: true })
-  sort: MatSort | undefined;
-
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
+  @ViewChild(MatSort, {static: true}) sort: MatSort | undefined;
   inventoryItems: any;
-  inventoryColumns: string[] = [
+  inventoryColumns: string[] =[
     'select',
     'id',
     'name',
-    'user',
     'description',
+    'user',
     'location',
     'inventoryNumber',
     'createdAt',
     'modifiedAt',
     'deleted',
-    'actions',
+    'actions'
   ];
   selection = new SelectionModel<Element>(true, []);
 
-  constructor(private inventoryListMock: InventoryListMock) {}
-
+  constructor(private inventoryListMock: InventoryListMock) {
+    this.inventoryItems = [];
+  }
   ngOnInit(): void {
     this.inventoryItems = new MatTableDataSource<InventoryItem>(this.inventoryListMock.getData());
     this.inventoryItems.paginator = this.paginator;
     this.inventoryItems.sort = this.sort;
   }
 
-  isAllSelected() {
-    const numSelect = this.selection.selected.length;
-    const numRows = this.inventoryItems.data.length;
-    return numSelect === numRows;
+  masterToggle(){
+    this.isAllSelected() 
+    ? this.selection.clear() 
+    : this.inventoryItems.data.forEach((row: Element) => 
+      {this.selection.select(row)});
   }
 
-  masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.inventoryItems.data.forEach((row: Element) => this.selection.select(row));
+  isAllSelected(): boolean {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.inventoryItems.data.length;
+    return numSelected === numRows;
   }
+   
 }

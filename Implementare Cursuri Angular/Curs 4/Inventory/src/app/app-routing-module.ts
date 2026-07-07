@@ -1,25 +1,25 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePage } from './home-page/home-page';
-import { Inventory } from './menu-item/inventory/inventory';
-import { Scan } from './menu-item/scan/scan';
-import { AddItem } from './menu-item/add-item/add-item';
-import { Contact } from './menu-item/contact/contact';
-import { ShowItem } from './menu-item/show-item/show-item';
+import { AddItem } from './menu-items/add-item/add-item';
+import { Contact } from './menu-items/contact/contact';
+import { Inventory } from './menu-items/inventory/inventory';
+import { Scan } from './menu-items/scan/scan';
+import { HomePage } from './menu-items/home-page/home-page';
+import { ShowItem } from './menu-items/show-item/show-item';
 
 const routes: Routes = [
   { path: '', component: HomePage },
-  { path: 'inventory', component: Inventory },
-  { path: 'scan', component: Scan },
   { path: 'add-item', component: AddItem },
   { path: 'edit/:id', component: AddItem },
-  { path: 'show-item/:id', component: ShowItem },
   { path: 'contact', component: Contact },
+  { path: 'inventory', component: Inventory },
+  { path: 'scan', component: Scan },
+  { path: 'item/:id', component: ShowItem }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
-export const RoutingComponent = [HomePage, Inventory, Scan, AddItem, ShowItem, Contact];
+export class AppRoutingModule { }
+export const RoutingComponents = [HomePage, AddItem, Contact, Inventory, Scan, ShowItem];

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { InventoryListMock } from '../../app-logic/inventory-list-mock';
 import { InventoryItem } from '../../app-logic/inventory-item';
 import { ActivatedRoute, Router } from '@angular/router';
+import {InventoryListMock} from '../../app-logic/inventory-list-mock';
 
-@Component({
+@Component({    
   selector: 'app-show-item',
   standalone: false,
   templateUrl: './show-item.html',
-  styleUrl: './show-item.css',
+  styleUrls: ['./show-item.css']  ,
 })
 export class ShowItem implements OnInit {
   itemId!: number;
@@ -15,20 +15,21 @@ export class ShowItem implements OnInit {
   itemFound = false;
 
   constructor(
-    private inventoryListMock: InventoryListMock,
     private router: Router,
-    private route: ActivatedRoute,
-  ) {
-    this.route.params.subscribe((params) => {
+    private activatedRoute: ActivatedRoute,
+    private inventoryListMock: InventoryListMock
+  ){
+    this.activatedRoute.params.subscribe((params) => {
       this.itemId = params['id'] ?? 0;
     });
   }
   ngOnInit(): void {
     this.item = this.inventoryListMock.getItemById(this.itemId);
-    this.itemFound = this.item ? true : false;
+    this.itemFound = this.item != null;
   }
 
-  editItem() {
+  editItem(): void {
     this.router.navigate(['/edit', this.itemId]);
   }
+  
 }

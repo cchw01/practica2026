@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ContactPrvider } from './contact-prvider';
+import { ContactProvider } from './contact-provider';
 
-describe('ContactPrvider', () => {
-  let service: ContactPrvider;
+describe('ContactProvider', () => {
+  let service: ContactProvider;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(ContactPrvider);
+    service = TestBed.inject(ContactProvider);
   });
 
   it('should be created', () => {

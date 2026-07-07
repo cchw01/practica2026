@@ -115,25 +115,24 @@ export class InventoryListMock {
       createdAt: new Date('2017-01-01'),
       modifiedAt: new Date('2020-02-04'),
       deleted: true,
-    },
+    }
   ];
+  constructor() {}
 
   getData(): Array<InventoryItem> {
     return this.inventoryData;
+  }
+
+  getLastId(): number {
+    return this.inventoryData[this.inventoryData.length - 1].id;
   }
 
   addItem(item: InventoryItem): void {
     this.inventoryData.push(item);
   }
 
-  getLastId(): number {
-    return Math.max.apply(
-      Math,
-      this.inventoryData.map((item) => item.id),
-    );
-  }
-
   getItemById(id: number): InventoryItem {
     return this.inventoryData.filter((item) => item.id == id)[0];
   }
+
 }

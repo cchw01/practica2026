@@ -5,15 +5,16 @@ import { ContactData } from './contact-data';
   providedIn: 'root',
 })
 export class ContactProvider {
-  providedData = <ContactData>{
-    info: 'We are a company that provides high-quality products and services to our customers.',
-    phone: '+1 (555) 123-4567',
+  private contactData: ContactData = {
+    info: 'Storage unit in Brasov, CORESI',
+    phone: 'Turnului, nr. 5',
     openDays: 'Monday - Friday',
-    timeSlot: '9:00 AM - 5:00 PM',
-    address: '123 Main Street, Anytown, USA',
+    timeSlots: '9.00 - 17.00',
+    address: '0747212321',
   };
 
   getContactData(): ContactData {
-    return this.providedData;
+    return this.contactData;
   }
+
 }

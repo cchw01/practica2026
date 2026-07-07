@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { InventoryListMock } from '../../app-logic/inventory-list-mock';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { InventoryListMock} from '../../app-logic/inventory-list-mock';
 import { InventoryItem } from '../../app-logic/inventory-item';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,53 +14,56 @@ export class AddItem {
   addItemForm: FormGroup;
   item!: InventoryItem;
   itemId!: number;
-  submitValue: string = 'Add Item';
+  submitValue: string = "Add Item";
 
   constructor(
-    private fb: FormBuilder,
+    private fb: FormBuilder, 
     private inventoryListMock: InventoryListMock,
     private router: Router,
-    private route: ActivatedRoute,
+    private route: ActivatedRoute
   ) {
     this.addItemForm = new FormGroup({});
-    this.route.params.subscribe((params) => {
-      if (params['id']) {
+    this.route.params.subscribe(params => {
+      if(params['id'])
+      {
         this.itemId = params['id'];
-      } else {
+      }else{
         this.itemId = 0;
       }
-    });
+      });
   }
 
-  ngOnInit(): void {
-    this.item =
+  ngOnInit(): void{
+    this.item = 
       this.itemId == 0
-        ? new InventoryItem()
-        : this.inventoryListMock.getItemById(this.itemId) || new InventoryItem();
+      ? new InventoryItem()
+      : this.inventoryListMock.getItemById(this.itemId) || new InventoryItem();
 
     this.addItemForm = this.fb.group({
-      name: [this.item.name, Validators.required],
-      description: [this.item.description, Validators.maxLength(100)],
-      user: [this.item.user, Validators.required],
-      location: [this.item.location, Validators.required],
-      inventoryNumber: [this.item.inventoryNumber, Validators.required],
-      createdAt: [this.item.createdAt?.toISOString().split('T')[0], Validators.required],
+      name: [this.item.name , Validators.required],
+      description: [this.item.description , Validators.maxLength(100)],
+      user: [this.item.user , Validators.required],
+      location: [this.item.location , Validators.required],
+      inventoryNumber: [this.item.inventoryNumber , Validators.required],
+      createdAt: [ 
+        this.item.createdAt?.toISOString().split('T')[0]
+        , Validators.required],
     });
 
-    if (this.itemId != 0) {
-      this.submitValue = 'Edit Item';
+    if(this.itemId != 0){
+      this.submitValue = "Edit Item";
     }
   }
 
   onSubmit(): void {
-    if (this.itemId == 0) {
+    if(this.itemId == 0){
       this.item = new InventoryItem(this.addItemForm.value);
       this.item.createdAt = new Date(this.item.createdAt);
       this.item.modifiedAt = new Date();
       this.item.deleted = false;
       this.item.id = this.inventoryListMock.getLastId() + 1;
       this.inventoryListMock.addItem(this.item);
-    } else {
+    } else{
       this.item.name = this.addItemForm.value.name;
       this.item.description = this.addItemForm.value.description;
       this.item.user = this.addItemForm.value.user;
