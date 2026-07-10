@@ -1,0 +1,53 @@
+<h1>Add Inventory Item</h1>
+<div calss="row">
+    <div class="column">
+        @if (addItemForm) {
+        <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
+            <p><mat-form-field appearance="outline">
+                    <mat-label>Item Name</mat-label>
+                    <input matInput placeholder="Item name" type="text" formControlName="name" required>
+                    @if (hasError('name', 'required')) {<mat-error> Name is required </mat-error>}
+                </mat-form-field></p>
+            <p><mat-form-field appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput placeholder="Description" formControlName="description" required></textarea>
+                    @if (hasError('description', 'required')) {<mat-error> Description is required </mat-error>}
+                </mat-form-field></p>
+            <p><mat-form-field appearance="outline">
+                    <mat-label>User</mat-label>
+                    <input matInput placeholder="User name" type="text" formControlName="user" required>
+                    @if (hasError('user', 'required')) {<mat-error> User is required </mat-error>}
+                </mat-form-field></p>
+            <p><mat-form-field appearance="outline">
+                    <mat-label>Location</mat-label>
+                    <input matInput placeholder="Location" type="text" formControlName="location" required>
+                    @if (hasError('location', 'required')) {<mat-error> Location is required </mat-error>}
+                </mat-form-field></p>
+            <p><mat-form-field appearance="outline">
+                    <mat-label>Inventory Number</mat-label>
+                    <input matInput placeholder="Inventory Number" type="number" formControlName="inventoryNumber" required>
+                    @if (hasError('inventoryNumber', 'required')) {<mat-error> Inventory Number is required </mat-error>}
+                </mat-form-field></p>
+            <p><mat-form-field appearance="outline">
+                    <mat-label>Created At</mat-label>
+                    <input matInput placeholder="Created At" type="date" formControlName="createdAt" required>
+                    @if (hasError('createdAt', 'required')) {<mat-error> Created At is required </mat-error>}
+                </mat-form-field></p>
+            <button mat-raised-button color="primary" type="submit" [disabled]="addItemForm.invalid">{{ submitValue }}</button>
+        </form>
+    }
+    </div>
+    <div class="column">
+        @if(itemId) {
+            <div class="centered">
+                <qr-code [value]="itemId.toString()" [size]="350"></qr-code>
+            </div>
+         }
+    </div>
+</div>
+<p>
+    Form values: {{ addItemForm.value | json }}
+</p>
+<p>
+    Form status: {{ addItemForm.status }}
+</p>
